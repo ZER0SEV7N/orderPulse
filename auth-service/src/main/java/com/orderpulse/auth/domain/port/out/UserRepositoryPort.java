@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface UserRepositoryPort {
     Uni<Optional<User>> findByEmail(String email);
     Uni<User> save(User user);
-    Uni<User> findById(int id);
+    Uni<Optional<User>> findUserById(String id);
 }
