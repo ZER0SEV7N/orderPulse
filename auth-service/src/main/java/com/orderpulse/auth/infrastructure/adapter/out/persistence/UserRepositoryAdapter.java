@@ -31,6 +31,19 @@ public class UserRepositoryAdapter implements UserRepositoryPort, PanacheReposit
         return findById(id)
                 .onItem().transform(entity -> Optional.ofNullable(entity).map(this::toDomain));
     }
+
+    //Metodo para actualizar el usuario
+    public Uni<User> update(User user) {
+        return Panache.withTransaction(() ->
+                findById(user.id())
+                        .onItem().ifNotNull().invoke(entity -> {
+                            entity.username = user.username();
+                            entity.email = user.email();
+                            //Roles y password
+                        })
+        ).replaceWith(user);
+    }
+
     private User toDomain(UserEntity entity) {
         return new User(entity.id, entity.username, entity.email, entity.password, entity.roles);
     }

@@ -11,4 +11,5 @@ public interface UserRepositoryPort {
     Uni<Optional<User>> findByEmail(String email);
     Uni<User> save(User user);
     Uni<Optional<User>> findUserById(String id);
+    Uni<User> update(User user);
 }
